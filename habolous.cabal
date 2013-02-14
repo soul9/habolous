@@ -1,0 +1,64 @@
+name:           habolous
+version:        0.1.2
+cabal-version:  >= 1.8
+build-type:     Simple
+author:         johnny@r0x0r.me
+license:        AllRightsReserved
+maintainer:     John Soros <johnny@r0x0r.me>
+synopsis:       A cool webapp
+description:    A webapp built on top of happstack, heist and HDBC-Postgresql
+category:       Web
+Data-Files:     examples/habolous.conf
+                docs/INSTALL
+                sql/*.sql
+
+library
+  build-depends: base == 4.5.0.0,
+                 text, time, mtl,
+                 bytestring, ConfigFile,
+                 blaze-markup, blaze-html,
+                 happstack-server,
+                 HDBC, HDBC-postgresql,
+                 cryptohash, uuid
+  ghc-options:     -Wall
+  hs-source-dirs:  src/lib
+  exposed-modules: Habolous.Types.DatabaseConfig,
+                   Habolous.Types.Config,
+                   Habolous.Types.HabolousEnv,
+                   Habolous.Types.Person,
+                   Habolous.Types.Group,
+                   Habolous.Types.Role,
+                   Habolous.Types.Employee,
+                   Habolous.Types.Session,
+                   Habolous.DbUtil.Helpers,
+                   Habolous.DbUtil.Person,
+                   Habolous.DbUtil.Group,
+                   Habolous.DbUtil.Role,
+                   Habolous.DbUtil.Employee,
+                   Habolous.DbUtil.Session,
+                   Habolous.DbUtil.HabolousEnv,
+                   Habolous.Routes,
+                   Habolous.Routes.Version,
+                   Habolous.Routes.DatabaseVersion,
+                   Habolous.Routes.Login,
+                   Habolous.Templates.Master,
+                   Habolous.Templates.Version,
+                   Habolous.Templates.DatabaseVersion,
+                   Habolous.Templates.Login,
+                   Paths_habolous
+
+executable habolous
+  hs-source-dirs:  src
+  ghc-options:     -Wall
+  main-is:         Habolous.hs
+  build-depends:   base == 4.5.0.0,
+                   habolous
+
+executable filldb
+  hs-source-dirs:  src
+  ghc-options:     -Wall
+  main-is:         FillDb.hs
+  build-depends:   base == 4.5.0.0,
+                   text, habolous, mtl,
+                   containers, bytestring,
+                   happstack-server, HDBC

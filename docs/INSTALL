@@ -1,0 +1,43 @@
+Habolous uses cabal for deployment
+
+Install on windows
+===================
+ - install haskell-platform from http://haskell.org/platform
+ - install postgresql server from http://www.postgresql.org/
+ - install mingw and msys (latest directory on http://sourceforge.net/projects/mingw/files/Installer/mingw-get-inst/)
+ - run cabal update
+ - finally, type cabal install in the habolous directory (or use a distributed tarball)
+
+Postgresql problems with the tools not being in the windows path
+=================================================================
+to make cabal (and HDBC-postgresql) work on windows correctly, add the cabal path to your windows path:
+  right click on "Computer" -> "Properties"
+  go to "Advanced system settings"
+  click the "Environment Variables" button
+  in "System Variables" edit the "Path" variable
+  at the beginning of the "Variable value" line, add c:\Program Files\PostgreSQL\9.2\bin;C:\Users\Admin\AppData\Roaming\cabal\bin;
+                                                   replace Admin with your login
+
+Problems with MissingH and directory >= 1.2.0.0
+================================================
+The error will be about some time problem, disregard that, here is the solution.
+to install configfile on win32, we need to NOT install directory >= 1.2, so use this command to install habolous (or configfile:)
+    cabal install --constraint="directory < 1.2.0.0"
+
+
+Running Habolous
+================
+To run the app, you need to create a configuration file with the required database information. There is an example file in the examples directory, and pass it as argument to the binary.
+For example: habolous c:\dbconfig.conf
+
+
+creating binary packages
+=========================
+(from http://www.haskell.org/cabal/users-guide/installing-packages.html#creating-a-binary-package)
+./Setup.hs configure --user
+./Setup.hs build
+./Setup.hs copy --destdir=/my/bin/destination
+./Setup.hs register --gen-script
+./Setup.hs unregister --gen-script
+mv register.bat /my/bin/destination
+mv unregister.bat /my/bin/destination

@@ -1,0 +1,16 @@
+handle sql errors gracefully
+=============================
+Catch and display errors: An idea would be to add an error type to the habolous environment, and render that into an error div
+
+explicit export lists
+tidy imports
+
+unhardcode database name
+
+create a password hashing function somewhere
+
+Auth: 404 is displayed to authenticated user
+      sessions table needs expiry date column
+      expire sessions
+
+try unicode with database
